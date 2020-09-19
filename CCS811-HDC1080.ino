@@ -93,28 +93,32 @@ void setup() {
 void loop() {
   float temp = hdc1080.readTemperature();
   float humid = hdc1080.readHumidity();
-  Serial.print(temp);
-  Serial.print(",");
-  Serial.print(humid);
-  Serial.print(",");
+  Serial.printf("Temp: %0.2f °C, Humid: %0.2f %%, ", temp, humid);
+//  Serial.print(temp);
+//  Serial.print(",");
+//  Serial.print(humid);
+//  Serial.print(",");
 
   if(ccs.available()){
     ccs.setEnvironmentalData(float(humid), float(temp));
 
     if(!ccs.readData()){
-      Serial.print(ccs.geteCO2());
-      Serial.print(",";
-      Serial.println(ccs.getTVOC());
+      Serial.printf("eCO2: %i ppm, TVOC: %i ppb \n", ccs.geteCO2(), ccs.getTVOC());
+      //Serial.print(ccs.geteCO2());
+      //Serial.print(",");
+      //Serial.println(ccs.getTVOC());
     } else {
-      Serial.print("-");
-      Serial.print(",");
-      Serial.println("-");
+      Serial.printf("- , - \n"); 
+      //Serial.print("-");
+      //Serial.print(",");
+      //Serial.println("-");
       while(1)
     }
   } else {
-    Serial.print("-");
-    Serial.print(",");
-    Serial.println("-");
+    Serial.printf("- , - \n"); 
+    //Serial.print("-");
+    //Serial.print(",");
+    //Serial.println("-");
   }
   delay(500);
 }
